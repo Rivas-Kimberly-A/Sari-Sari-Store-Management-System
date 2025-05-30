@@ -1,20 +1,23 @@
-<?php include __DIR__ . '/../layout/header.php'; ?>
+<?php include __DIR__ . '/../../layout/header.php'; ?>
 
-<h2>Add Product</h2>
+<h2>Add User</h2>
 <form method="POST" action="">
     <div class="mb-3">
-        <label for="name" class="form-label">Name</label>
-        <input type="text" name="name" id="name" class="form-control" required>
+        <label for="username" class="form-label">Username</label>
+        <input type="text" name="username" id="username" class="form-control" required>
     </div>
     <div class="mb-3">
-        <label for="price" class="form-label">Price</label>
-        <input type="number" name="price" id="price" step="0.01" class="form-control" required>
+        <label for="password" class="form-label">Password</label>
+        <input type="password" name="password" id="password" class="form-control" required>
     </div>
     <div class="mb-3">
-        <label for="quantity" class="form-label">Quantity</label>
-        <input type="number" name="quantity" id="quantity" class="form-control" required>
+        <label for="role" class="form-label">Role</label>
+        <select name="role" id="role" class="form-select" required>
+            <option value="admin">Admin</option>
+            <option value="cashier">Cashier</option>
+        </select>
     </div>
-    <button type="submit" class="btn btn-primary">Add Product</button>
+    <button type="submit" class="btn btn-primary">Add User</button>
 </form>
 
-<?php include __DIR__ . '/../layout/footer.php'; ?>
+<?php include __DIR__ . '/../../layout/footer.php'; ?>
