@@ -1,29 +1,83 @@
-<?php include __DIR__ . '/../layout/header.php'; ?>
+<?php
+require_once 'app/controllers/AuthController.php';
+require_once 'app/controllers/DashboardController.php';
+require_once 'app/controllers/UserController.php';
+require_once 'app/controllers/ProductAdminController.php';
+require_once 'app/controllers/SalesController.php';
 
-<h2>Users</h2>
-<a href="index.php?page=user_create" class="btn btn-primary mb-3">Add User</a>
+session_start();
 
-<table class="table table-bordered">
-<thead>
-  <tr>
-    <th>ID</th>
-    <th>Username</th>
-    <th>Role</th>
-    <th>Action</th>
-  </tr>
-</thead>
-<tbody>
-  <?php foreach ($users as $u): ?>
-  <tr>
-    <td><?= $u['id'] ?></td>
-    <td><?= htmlspecialchars($u['username']) ?></td>
-    <td><?= htmlspecialchars($u['role']) ?></td>
-    <td>
-      <a href="index.php?page=user_delete&id=<?= $u['id'] ?>" class="btn btn-success btn-sm" onclick="return confirm('Delete user?')">Delete</a>
-    </td>
-  </tr>
-  <?php endforeach; ?>
-</tbody>
-</table>
+$page = $_GET['page'] ?? 'login';
 
-<?php include __DIR__ . '/../layout/footer.php'; ?>
+switch ($page) {
+    case 'login':
+        $auth = new AuthController();
+        $auth->login();
+        break;
+
+    case 'logout':
+        $auth = new AuthController();
+        $auth->logout();
+        break;
+
+    case 'dashboard':
+        $dashboard = new DashboardController();
+        $dashboard->index();
+        break;
+
+    case 'user':
+        $userCtrl = new UserController();
+        $userCtrl->index();
+        break;
+
+    case 'user_create':
+        $userCtrl = new UserController();
+        $userCtrl->create();
+        break;
+
+    case 'user_delete':
+        $userCtrl = new UserController();
+        $userCtrl->delete();
+        break;
+
+
+    case 'product_admin':
+        $prodAdmin = new ProductAdminController();
+        $prodAdmin->index();
+        break;
+
+    case 'product_admin_create':
+        $prodAdmin = new ProductAdminController();
+        $prodAdmin->create();
+        break;
+
+    case 'product_admin_edit':
+        $prodAdmin = new ProductAdminController();
+        $prodAdmin->edit();
+        break;
+
+    case 'product_admin_delete':
+        $prodAdmin = new ProductAdminController();
+        $prodAdmin->delete();
+        break;
+
+        case 'sales':
+        $sales = new SalesController();
+        $sales->index();
+        break;
+
+    case 'sales_create':
+        $sales = new SalesController();
+        $sales->create();
+        break;
+
+    case 'sales_report':
+        $sales = new SalesController();
+        $sales->report();
+        break;
+
+
+    default:
+        header('Location: index.php?page=login');
+        break;
+}
